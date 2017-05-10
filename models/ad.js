@@ -9,4 +9,9 @@ const adSchema = mongoose.Schema({
   tags: [String]
 });
 
-module.exports =  mongoose.model("Ad", adSchema);
+adSchema.statics.findAll = function (callback) {
+   Ad.find({}, callback);
+};
+
+const Ad = mongoose.model('Ad', adSchema);
+module.exports = Ad;
