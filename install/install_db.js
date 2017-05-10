@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
     return console.log('Error', error);    
   }
 
-  const fileName = path.join('./init', 'anuncios.json');
+  const fileName = path.join('./install', 'anuncios.json');
   fs.readFile(fileName, (err, data) => {    
     if (err) {
       return console.log('Error fs.readFile', err);
@@ -32,7 +32,13 @@ mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
           return console.log('Error async.parallel', err);
         }
         displayResult(results);
-        process.exit();
+        mongoose.connection.close((err) => {
+          if (err) {
+            return console.log('Error mongoose.connection.close', err);
+          }
+          process.exit();
+        });
+        
       });   
     } catch (err) {
       return console.log('Error', err);
