@@ -2,12 +2,13 @@
 
 var express = require('express');
 const mongoose = require('mongoose');
+const jwt = require('../../lib/jwt');
 
 var router = express.Router();
 
-/* GET /apiv1/ads */
-router.get('/', (req, res, next) => {
 
+/* GET /apiv1/ads */
+router.get('/', jwt.verify, (req, res, next) => {
   // Parse filters (field filters)
   let filters = {};
   // Tag filter

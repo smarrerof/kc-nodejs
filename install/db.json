@@ -26,7 +26,12 @@
     {
       "name": "Administrator",
       "email": "admin@email.com",
-      "password": "123456"
-    } 
+      "password": "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI="
+    },
+    {
+      "name": "User",
+      "email": "user@email.com",
+      "password": "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI="
+    }      
   ]
 }

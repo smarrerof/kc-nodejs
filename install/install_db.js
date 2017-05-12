@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
     return console.log('Error', error);    
   }
 
-  const fileName = path.join('./install', 'anuncios.json');
+  const fileName = path.join('./install', 'db.json');
   fs.readFile(fileName, (err, data) => {    
     if (err) {
       return console.log('Error fs.readFile', err);
