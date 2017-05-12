@@ -5,9 +5,8 @@ const path = require('path');
 const async = require('async');
 
 const mongoose = require('mongoose');
-const Ad = require('../models/ad');
-const User = require('../models/user');
-
+require('../models/Ad');
+require('../models/User');
 
 mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
   // Check error in initial connection
@@ -48,12 +47,12 @@ mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
 
 
 function initAds(ads, callback) {
-  Ad.remove({}, (err) => {
+  mongoose.model('Ad').remove({}, (err) => {
     if (err) {
       callback(err);
     }
 
-    Ad.collection.insertMany(ads, (err, data) => {
+    mongoose.model('Ad').collection.insertMany(ads, (err, data) => {
       if (err) {
         callback(err);
       }
@@ -63,12 +62,12 @@ function initAds(ads, callback) {
 }
 
 function initUsers(users, callback) {
-  User.remove({}, (err) => {
+  mongoose.model('User').remove({}, (err) => {
     if (err) {
       callback(err);
     }
 
-    User.collection.insertMany(users, (err, data) => {
+    mongoose.model('User').collection.insertMany(users, (err, data) => {
       if (err) {
         callback(err);
       }

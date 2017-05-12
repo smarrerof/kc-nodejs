@@ -10,6 +10,10 @@ var bodyParser = require('body-parser');
 //var index = require('./routes/index');
 //var users = require('./routes/users');
 
+require('./lib/connectMongoose');
+require('./models/Ad');
+require('./models/User');
+
 var app = express();
 
 // view engine setup

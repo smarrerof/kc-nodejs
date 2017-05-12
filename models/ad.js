@@ -9,9 +9,12 @@ const adSchema = mongoose.Schema({
   tags: [String]
 });
 
-adSchema.statics.findAll = function (callback) {
-   Ad.find({}, callback);
+adSchema.statics.findByFilter = function (filters, options, callback) {
+  console.log('findByFilter:filters', filters);
+  console.log('findByFilter:options', options);
+  mongoose.model('Ad').find(filters, callback)
+    .skip(options.start * options.limit)
+    .limit(options.limit);
 };
 
-const Ad = mongoose.model('Ad', adSchema);
-module.exports = Ad;
+mongoose.model('Ad', adSchema);

@@ -1,29 +1,66 @@
 'use strict';
 
 var express = require('express');
+const mongoose = require('mongoose');
+
 var router = express.Router();
 
-const mongoose = require('mongoose');
-const Ad = require('../../models/ad');
+/* GET /apiv1/ads */
+router.get('/', (req, res, next) => {
 
-/* Ads endpoint */
-router.get('/', function(req, res) {
-  // res.setHeader('Content-Type', 'application/json');
-  // res.send({ ad: 1 });
+  // Parse filters (field filters)
+  let filters = {};
+  // Tag filter
+  if (req.query.tag) {
+    filters.tags = req.query.tag;
+  }
 
-  mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
-    // Check error in initial connection
-    if (error) {
-      return res.status(500).send({ error: 'something blew up'+error }); 
+  // IsSale filter
+  if (req.query.venta) {
+    if (req.query.venta === 'true') {
+      filters.isSale = true;
+    } else if (req.query.venta === 'false') {
+      filters.isSale = false;
+    }
+  }
+
+  // Name filter
+  if (req.query.nombre) {
+    filters.name = new RegExp('^'+ req.query.nombre, 'i');
+  }
+
+  // Price filter
+  if (req.query.precio) {
+    var prices = req.query.precio.split('-');
+    if (prices.length == 2) {
+      filters.price = {};
+      if (prices[0] !== '') {
+        filters.price = Object.assign({'$gte': parseInt(prices[0])}, filters.price);
+      }
+      if (prices[1] !== '') {
+        filters.price = Object.assign({'$lte': parseInt(prices[1])}, filters.price);
+      }
+    }
+  }
+
+  // Parse options (paging, sorting...)
+  let options = {};
+  // Start option -> pageIndex
+  if (req.query.start) {
+    options.start = parseInt(req.query.start);
+  }
+
+  // Limit option -> pageSize
+  if (req.query.limit) {
+     options.limit = parseInt(req.query.limit);
+  }
+
+  mongoose.model('Ad').findByFilter(filters, options, (err, result) => {
+    if (err) {
+        return next(err);
     }
 
-    Ad.findAll((err, data) => {
-      if (error) {
-        return res.status(500).send({ error: 'something blew up' }); 
-      }
-      res.setHeader('Content-Type', 'application/json');
-      return res.send(data);
-    });
+    return res.json({success: true, result: result});
   });
 });
 
