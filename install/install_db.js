@@ -5,15 +5,13 @@ const path = require('path');
 const async = require('async');
 
 const mongoose = require('mongoose');
+require('../lib/connectMongoose');
 require('../models/Ad');
 require('../models/User');
 
-mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
-  // Check error in initial connection
-  if (error) {
-    return console.log('Error', error);    
-  }
 
+
+function init() {
   const fileName = path.join('./install', 'db.json');
   fs.readFile(fileName, (err, data) => {    
     if (err) {
@@ -36,14 +34,13 @@ mongoose.connect('mongodb://localhost/nodepop', {}, function(error) {
             return console.log('Error mongoose.connection.close', err);
           }
           process.exit();
-        });
-        
+        });     
       });   
     } catch (err) {
       return console.log('Error', err);
     }
   });  
-});
+}
 
 
 function initAds(ads, callback) {
@@ -90,3 +87,5 @@ function displayResult(results) {
     }
   });
 }
+
+init();
