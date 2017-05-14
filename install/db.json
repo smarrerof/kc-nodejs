@@ -6,20 +6,41 @@
       "price": 230.15,
       "photo": "bici.jpg",
       "tags": [ "lifestyle", "motor"]
-    },
+    }, 
+    {
+      "name": "iPhone 3GS", 
+      "isSale": false,
+      "price": 50.00,
+      "photo": "iphone3gs.png",
+      "tags": [ "lifestyle", "mobile"]
+      },
     {
       "name": "iPhone 7",
-      "isSale": false,
+      "isSale": true,
       "price": 650.00,
-      "photo": "iphone.png",
+      "photo": "iphone7.png",
       "tags": [ "lifestyle", "mobile"]
     },
     {
       "name": "iMac 27' de 2015",
-      "isSale": false,
+      "isSale": true,
       "price": 1250.00,
-      "photo": "iphone.png",
+      "photo": "imac27-2015.png",
       "tags": ["lifestyle", "work"]
+    },
+    {
+      "name": "Figuras Star Wars",
+      "isSale": false,
+      "price": 24.00,
+      "photo": "starwars.png",
+      "tags": ["lifestyle"]
+    },
+    {
+      "name": "Entradas Areosmith Tener9fe",
+      "isSale": false,
+      "price": 100.00,
+      "photo": "aerosmith.png",
+      "tags": ["lifestyle"]
     }
   ],
   "users": [
