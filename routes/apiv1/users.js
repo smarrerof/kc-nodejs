@@ -12,7 +12,6 @@ var router = express.Router();
 /* POST /apiv1/users */ 
 router.post('/', function(req, res, next) {
     const body = req.body;
-
   
   if (!body || !body.name || !body.email || !body.password) {
     const error = i18n.translate('BadRequest');

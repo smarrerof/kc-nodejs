@@ -17,22 +17,22 @@ router.get('/', jwt.verify, (req, res, next) => {
   }
 
   // IsSale filter
-  if (req.query.venta) {
-    if (req.query.venta === 'true') {
+  if (req.query.sale) {
+    if (req.query.sale === 'true') {
       filters.isSale = true;
-    } else if (req.query.venta === 'false') {
+    } else if (req.query.sale === 'false') {
       filters.isSale = false;
     }
   }
 
   // Name filter
-  if (req.query.nombre) {
-    filters.name = new RegExp('^'+ req.query.nombre, 'i');
+  if (req.query.name) {
+    filters.name = new RegExp('^'+ req.query.name, 'i');
   }
 
   // Price filter
-  if (req.query.precio) {
-    var prices = req.query.precio.split('-');
+  if (req.query.price) {
+    var prices = req.query.price.split('-');
     if (prices.length == 2) {
       filters.price = {};
       if (prices[0] !== '') {
