@@ -1,8 +1,12 @@
 {
   "en": {
-    "BadRequest": "en_BadRequest"
+    "AddUser_RequireFields": "Name, email and password are mandatory.",
+    "AddUser_EmailExists": "Email already already in use",
+    "AuthenticateUser_Failed": "Incorrect user email or password"
   },
   "es": {
-    "BadRequest": "es_BadRequest"
+    "AddUser_RequireFields": "El nombre, el correo electrónico y la contraseña son obligatorios.",
+    "AddUser_EmailExists": "El correo electrónico ya existe",
+    "AuthenticateUser_Failed": "Nombre de usuario o contraseña incorrectos"
   }
 }

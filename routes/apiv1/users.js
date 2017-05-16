@@ -11,20 +11,24 @@ var router = express.Router();
 
 /* POST /apiv1/users */ 
 router.post('/', function(req, res, next) {
-    const body = req.body;
+  const body = req.body;
   
   if (!body || !body.name || !body.email || !body.password) {
-    const error = i18n.translate('BadRequest');
-    return res.status('400').send(error);
+    const error = i18n.translate('AddUser_RequireFields');
+    return res.status('400').json({status: false, error: error});
   }
 
   const sha256 = crypto.createHash('sha256').update(body.password).digest('base64');
   const user = {name: body.name, email: body.email, password: sha256};
 
   mongoose.model('User').create(user, (err) => {
-    console.log('User');
     if (err) {
-      next(err);
+      if (err.code === 11000) {
+        // Duplicate email
+        const error = i18n.translate('AddUser_EmailExists');
+        return res.status('400').json({status: false, error: error});
+      }
+      return next(err);
     }
 
     return res.json({success: true});
@@ -34,7 +38,8 @@ router.post('/', function(req, res, next) {
 /* POST /apiv1/users/authenticate */
 router.post('/authenticate', function(req, res, next) {
   if (!req.body.email || !req.body.password) {
-    return res.status('400').send('BadRequest');
+    const error = i18n.translate('AuthenticateUser_Failed');
+    return res.status('401').send({status: false, error: error});
   }
 
   const sha256 = crypto.createHash('sha256').update(req.body.password).digest('base64');
@@ -45,12 +50,13 @@ router.post('/authenticate', function(req, res, next) {
     }
 
     if (!user) {      
-      return res.json({success: false, error: 'Authentication failed.'});
+      const error = i18n.translate('AuthenticateUser_Failed');
+      return res.status('401').send({status: false, error: error});
     }
 
     const token = jwt.sign({email: user.email});
 
-    return res.json({success: true, token: token});
+    return res.json({success: true, result: token});
   });
 });
 

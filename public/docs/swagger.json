@@ -29,7 +29,7 @@
         "tags": [
           "users"
         ],
-        "summary": "Add a new user to database",
+        "summary": "Añade un nuevo usuario a la base de datos",
         "description": "",
         "operationId": "addUser",
         "consumes": [
@@ -42,7 +42,7 @@
           {
             "in": "body",
             "name": "body",
-            "description": "User object that needs to be added to database",
+            "description": "Usuario a crear en la base datos",
             "required": true,
             "schema": {
               "$ref": "#/definitions/User"
@@ -50,54 +50,23 @@
           }
         ],
         "responses": {
-          "405": {
-            "description": "Invalid input"
-          }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "pet"
-        ],
-        "summary": "Update an existing pet",
-        "description": "",
-        "operationId": "updatePet",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Pet object that needs to be added to the store",
-            "required": true,
+          "200": {
+            "description": "El usuario ha sido creado correctamente",
             "schema": {
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/ApiResponse"
             }
-          }
-        ],
-        "responses": {
+          },
           "400": {
-            "description": "Invalid ID supplied"
+            "description": "La información requerida no ha sido suministrado correctamente",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
           },
-          "404": {
-            "description": "Pet not found"
-          },
-          "405": {
-            "description": "Validation exception"
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
           }
         },
         "security": [
@@ -110,6 +79,64 @@
         ]
       }
     },
+    "/users/authenticate": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Autentica a un usuario",
+        "description": "",
+        "operationId": "authenticateUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [          
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Email y contraseña del usuario a autenticar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Authenticate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "El usuario se ha autenticado correctamente",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "401": {
+            "description": "El usuario no se ha autenticado correctamente",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+
+
+
     "/pet/findByStatus": {
       "get": {
         "tags": [
@@ -856,6 +883,19 @@
         }
       }
     },
+    "Authenticate": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Correo electrónico"
+        },
+        "password": {
+          "type": "string",
+          "description": "Contraseña"
+        }
+      }
+    },    
 
     "Order": {
       "type": "object",
@@ -979,15 +1019,17 @@
     "ApiResponse": {
       "type": "object",
       "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
+        "status": {
+          "description": "Verdadero si la operación ha finalizado con éxito. False en otro caso.",
+          "type": "boolean"
         },
-        "type": {
+        "error": {
+          "description": "Mensaje de error",
           "type": "string"
         },
-        "message": {
-          "type": "string"
+        "result": {
+          "description": "Resultado de la operación si ha finalizado con éxito",
+          "type": "object"
         }
       }
     }
