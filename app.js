@@ -11,6 +11,8 @@ require('./lib/connectMongoose');
 require('./models/Ad');
 require('./models/User');
 
+const i18n = require('./locales/i18n');
+
 var app = express();
 
 // view engine setup
@@ -24,6 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Custom middleware to extract the language from the request
+app.use(i18n.configure);
 
 // Add routes
 app.use('/apiv1/ads', require('./routes/apiv1/ads'));

@@ -2,14 +2,23 @@
 
 const translations = require('./translations.json');
 
+const defaultLanguage = 'en';
+let requestLanguage;
+
+function configure(req, res, next) {
+  requestLanguage = req.headers.language;  
+  next();
+}
+
 function translate(key, language) {
-  language = language || 'en';
+  language = language || requestLanguage || defaultLanguage;
+  console.log('tranlate to', language);
   let dictionary = translations[language];
   if (!dictionary) {
-    if (language === 'en' || !translations.en) {
+    if (language === defaultLanguage || !translations[defaultLanguage]) {
       return key;
     }
-    dictionary = translations.en;
+    dictionary = translations[defaultLanguage];
   }
 
   if (!dictionary[key])
@@ -18,4 +27,7 @@ function translate(key, language) {
   return dictionary[key];
 }
 
-module.exports = { translate: translate };
+module.exports = {
+  configure: configure,
+  translate: translate 
+};
