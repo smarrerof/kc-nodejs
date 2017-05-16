@@ -66,7 +66,7 @@ router.get('/', jwt.verify, (req, res, next) => {
 });
 
 /* GET /apiv1/ads/tags */
-router.get('/tags', (req, res, next) => {
+router.get('/tags', jwt.verify, (req, res, next) => {
 
   mongoose.model('Ad').distinct('tags', (err, result) => {
     if (err) {
