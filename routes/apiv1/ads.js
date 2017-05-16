@@ -65,4 +65,16 @@ router.get('/', jwt.verify, (req, res, next) => {
   });
 });
 
+/* GET /apiv1/ads/tags */
+router.get('/tags', (req, res, next) => {
+
+  mongoose.model('Ad').distinct('tags', (err, result) => {
+    if (err) {
+        return next(err);
+    }
+     return res.json({success: true, result: result});
+  });
+
+});
+
 module.exports = router;
