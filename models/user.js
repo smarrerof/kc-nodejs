@@ -5,10 +5,20 @@ const userSchema = mongoose.Schema({
   name: String,
   email: {
     type: String,
-    index: true,
+    index: true,    
+    required: 'AddUser_RequireFields',
+    validate: {
+      validator: function(v) {
+        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+      },
+      message: 'AddUser_EmailIncorrect'
+    },
     unique: true
   },
-  password: String
+  password: {
+    type: String,
+    required: 'AddUser_RequireFields'
+  }
 });
 
 userSchema.statics.authenticate = function(email, password, callback) {

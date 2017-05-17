@@ -14,15 +14,21 @@ router.post('/', function(req, res, next) {
   const body = req.body;
   
   if (!body || !body.name || !body.email || !body.password) {
-    const error = i18n.translate('AddUser_RequireFields');
-    return res.status('400').json({status: false, error: error});
+     const error = i18n.translate('AddUser_RequireFields');
+     return res.status('400').json({status: false, error: error});
   }
 
-  const sha256 = crypto.createHash('sha256').update(body.password).digest('base64');
+  if (!/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(body.email)) {
+    const error = i18n.translate('AddUser_EmailIncorrect');
+    return res.status('400').send({status: false, error: error});
+  }
+
+  const sha256 = '';//crypto.createHash('sha256').update(body.password).digest('base64');
   const user = {name: body.name, email: body.email, password: sha256};
 
   mongoose.model('User').create(user, (err) => {
     if (err) {
+      console.log('user create', err);
       if (err.code === 11000) {
         // Duplicate email
         const error = i18n.translate('AddUser_EmailExists');
@@ -41,7 +47,7 @@ router.post('/authenticate', function(req, res, next) {
     const error = i18n.translate('AuthenticateUser_Failed');
     return res.status('401').send({status: false, error: error});
   }
-
+  
   const sha256 = crypto.createHash('sha256').update(req.body.password).digest('base64');
 
   mongoose.model('User').authenticate(req.body.email, sha256, (err, user) => {
