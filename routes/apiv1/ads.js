@@ -11,9 +11,10 @@ var router = express.Router();
 router.get('/', jwt.verify, (req, res, next) => {
   // Parse filters (field filters)
   let filters = {};
+
   // Tag filter
   if (req.query.tag) {
-    filters.tags = req.query.tag;
+    filters.tags = { $all: req.query.tag };
   }
 
   // sale filter
@@ -46,6 +47,7 @@ router.get('/', jwt.verify, (req, res, next) => {
 
   // Parse options (paging, sorting...)
   let options = {};
+
   // Start option -> pageIndex
   if (req.query.start) {
     options.start = parseInt(req.query.start);
@@ -57,13 +59,7 @@ router.get('/', jwt.verify, (req, res, next) => {
   }
 
   // Include total option
-  if (req.query.includeTotal) {
-    if (req.query.includeTotal === 'true') {
-      options.includeTotal = true;
-    } else if (req.query.includeTotal === 'false') {
-      options.includeTotal = false;
-    }
-  }
+  options.includeTotal = req.query.includeTotal === 'true';
 
   mongoose.model('Ad').findByFilter(filters, options, (err, ads) => {
     if (err) {
@@ -71,7 +67,7 @@ router.get('/', jwt.verify, (req, res, next) => {
     }
 
     if (!options.includeTotal) {
-      return res.json({success: true, result: ads});
+      return res.json({success: true, result: {ads: ads}});
     }
 
     mongoose.model('Ad').findByFilterCount(filters, options, (err, total) => {
@@ -89,12 +85,11 @@ router.get('/', jwt.verify, (req, res, next) => {
 
 /* GET /apiv1/ads/tags */
 router.get('/tags', jwt.verify, (req, res, next) => {
-
-  mongoose.model('Ad').distinct('tags', (err, result) => {
+  mongoose.model('Ad').distinct('tags', (err, tags) => {
     if (err) {
         return next(err);
     }
-     return res.json({success: true, result: result});
+     return res.json({success: true, result: {tags: tags}});
   });
 
 });

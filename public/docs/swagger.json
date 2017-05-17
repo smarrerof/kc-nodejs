@@ -134,7 +134,6 @@
         ]
       }
     },
-
     "/ads": {
       "get": {
         "tags": [
@@ -150,22 +149,57 @@
           {
             "name": "tag",
             "in": "query",
-            "description": "Filtro por etiqueta",
+            "description": "Filtro por etiqueta (el artículo contiene todas las etiquetas)",
             "required": false,
             "type": "array",
             "items": {
               "type": "string"
             },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sale",
+            "in": "query",
+            "description": "Filtro por venta (true en venta, false buscado)",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Filtro por nombre (el nombre del artículo comienza por el filtro)",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "Filtro por nombre (rango de precios separados por '-', por ejemplo '50-', '-100' o '50-100')",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Número de página",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamaño de página",
+            "required": false,
+            "type": "number"
           }
         ],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "array",
+              "type": "object",
               "items": {
-                "$ref": "#/definitions/Ad"
+                "$ref": "#/definitions/ApiResponse"
               }
             }
           },
@@ -182,7 +216,43 @@
           }
         ]
       }
-    }
+    },    
+    "/ads/tags": {
+      "get": {
+        "tags": [
+          "ads"
+        ],
+        "summary": "Obtiene el listado de tags",
+        "description": "",
+        "operationId": "getTags",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
+          },
+          "401": {
+            "description": "El usuario no se ha autenticado correctamente",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }    
   },
   "securityDefinitions": {
     "api_key": {

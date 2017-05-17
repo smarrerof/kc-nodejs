@@ -7,7 +7,8 @@
     "dev": "DEBUG=nodeapi:* nodemon",
     "dev:win": "SET DEBUG=nodeapi:* & nodemon",
     "installDB": "node ./install/install_db",
-    "lint": "jshint . --verbose || true"
+    "lint": "jshint . --verbose || true",
+    "lint:win": "jshint . --verbose & rem"
   },
   "dependencies": {
     "async": "^2.4.0",
