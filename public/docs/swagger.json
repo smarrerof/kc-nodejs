@@ -181,14 +181,14 @@
           {
             "name": "start",
             "in": "query",
-            "description": "Número de página",
+            "description": "Número de elemenos a omitir",
             "required": false,
             "type": "number"
           },
           {
             "name": "limit",
             "in": "query",
-            "description": "Tamaño de página",
+            "description": "Número de elementos a obtener",
             "required": false,
             "type": "number"
           }
