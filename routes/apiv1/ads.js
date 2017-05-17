@@ -56,12 +56,34 @@ router.get('/', jwt.verify, (req, res, next) => {
      options.limit = parseInt(req.query.limit);
   }
 
-  mongoose.model('Ad').findByFilter(filters, options, (err, result) => {
+  // Include total option
+  if (req.query.includeTotal) {
+    if (req.query.includeTotal === 'true') {
+      options.includeTotal = true;
+    } else if (req.query.includeTotal === 'false') {
+      options.includeTotal = false;
+    }
+  }
+
+  mongoose.model('Ad').findByFilter(filters, options, (err, ads) => {
     if (err) {
-        return next(err);
+      return next(err);
     }
 
-    return res.json({success: true, result: result});
+    if (!options.includeTotal) {
+      return res.json({success: true, result: ads});
+    }
+
+    mongoose.model('Ad').findByFilterCount(filters, options, (err, total) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json({success: true, result: {
+        ads: ads,
+        total: total
+      }});
+    });    
   });
 });
 
