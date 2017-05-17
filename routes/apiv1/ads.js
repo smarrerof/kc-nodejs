@@ -16,12 +16,12 @@ router.get('/', jwt.verify, (req, res, next) => {
     filters.tags = req.query.tag;
   }
 
-  // IsSale filter
+  // sale filter
   if (req.query.sale) {
     if (req.query.sale === 'true') {
-      filters.isSale = true;
+      filters.sale = true;
     } else if (req.query.sale === 'false') {
-      filters.isSale = false;
+      filters.sale = false;
     }
   }
 

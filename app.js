@@ -2,17 +2,16 @@
 
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//var index = require('./routes/index');
-//var users = require('./routes/users');
-
 require('./lib/connectMongoose');
 require('./models/Ad');
 require('./models/User');
+
+const i18n = require('./locales/i18n');
 
 var app = express();
 
@@ -28,8 +27,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', index);
-//app.use('/users', users);
+// Custom middleware to extract the language from the request
+app.use(i18n.configure);
 
 // Add routes
 app.use('/apiv1/ads', require('./routes/apiv1/ads'));
@@ -44,7 +43,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
