@@ -60,7 +60,7 @@ router.post('/authenticate', function(req, res, next) {
       return res.status('401').send({status: false, error: error});
     }
 
-    const token = jwt.sign({email: user.email});
+    const token = jwt.sign({id: user.id});
 
     return res.json({success: true, result: token});
   });
