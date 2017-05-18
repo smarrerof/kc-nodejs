@@ -23,21 +23,22 @@ router.post('/', function(req, res, next) {
     return res.status('400').json({status: false, error: error});
   }
 
-  const sha256 = '';//crypto.createHash('sha256').update(body.password).digest('base64');
+  const sha256 = crypto.createHash('sha256').update(body.password).digest('base64');
   const user = {name: body.name, email: body.email, password: sha256};
 
-  mongoose.model('User').create(user, (err) => {
+  mongoose.model('User').create(user, (err, userCreated) => {
     if (err) {
       console.log('user create', err);
       if (err.code === 11000) {
-        // Duplicate email
+        // Email duplicado en la base de datos
         const error = i18n.translate('AddUser_EmailExists');
         return res.status('400').json({status: false, error: error});
       }
       return next(err);
     }
-
-    return res.json({success: true});
+    // Por seguridad, borramos el password del objeto creado
+    userCreated.password = '';
+    return res.json({success: true, result: {user: userCreated}});
   });
 });
 

@@ -6,19 +6,9 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     index: true,    
-    required: 'AddUser_RequireFields',
-    validate: {
-      validator: function(v) {
-        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
-      },
-      message: 'AddUser_EmailIncorrect'
-    },
     unique: true
   },
-  password: {
-    type: String,
-    required: 'AddUser_RequireFields'
-  }
+  password: String
 });
 
 userSchema.statics.authenticate = function(email, password, callback) {
