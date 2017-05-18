@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
 
   if (!/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(body.email)) {
     const error = i18n.translate('AddUser_EmailIncorrect');
-    return res.status('400').send({status: false, error: error});
+    return res.status('400').json({status: false, error: error});
   }
 
   const sha256 = '';//crypto.createHash('sha256').update(body.password).digest('base64');
@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {
 router.post('/authenticate', function(req, res, next) {
   if (!req.body.email || !req.body.password) {
     const error = i18n.translate('AuthenticateUser_Failed');
-    return res.status('401').send({status: false, error: error});
+    return res.status('401').json({status: false, error: error});
   }
   
   const sha256 = crypto.createHash('sha256').update(req.body.password).digest('base64');
@@ -57,7 +57,7 @@ router.post('/authenticate', function(req, res, next) {
 
     if (!user) {      
       const error = i18n.translate('AuthenticateUser_Failed');
-      return res.status('401').send({status: false, error: error});
+      return res.status('401').json({status: false, error: error});
     }
 
     const token = jwt.sign({id: user.id});
