@@ -57,6 +57,29 @@ Las operaciones desarrolladas pueden ser consultadas a traves de los siguiente e
   * includeTotal: Nos devuelve el número de anuncios que cumplen los filtros indicados.
 * (GET) /apiv1/ads/tags: Devuelve la lista de tags de los anuncions datos de alta
 
+La API siempre devuelve la misma estructura. Esta estructura esta documentada y se llama ApiResult. El contenido es el siguiente
+* status: Verdadero si la llamada es correcta, falso si ha habido algun error.
+* error: Mensaje de error en caso de existir. Este mensaje de error estará localizado.
+* result: Resultado de la llamada.
+
+Usando los datos de prueba
+(POST) apiv1/users/authenticate
+```
+status code: 401
+{
+  "status": false,
+  "error": "Incorrect user email or password"
+}
+```
+```
+status code: 200
+{
+  "success": true,
+  "result": "..."
+}
+```
+
+
 ### Internacionalización
 Para la traducción de los mensajes de error se ha usado un módulo propido. Existen diversos módulos para hacer esto, pero se trata de aprender :)
 
