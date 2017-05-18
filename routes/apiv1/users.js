@@ -28,7 +28,6 @@ router.post('/', function(req, res, next) {
 
   mongoose.model('User').create(user, (err, userCreated) => {
     if (err) {
-      console.log('user create', err);
       if (err.code === 11000) {
         // Email duplicado en la base de datos
         const error = i18n.translate('AddUser_EmailExists');

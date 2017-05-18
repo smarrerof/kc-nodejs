@@ -10,7 +10,6 @@ const adSchema = mongoose.Schema({
 });
 
 adSchema.statics.findByFilter = function (filters, options, callback) {
-  console.log('Filters', filters);
   mongoose.model('Ad').find(filters, callback)     
     .skip(options.start)
     .limit(options.limit);

@@ -35,7 +35,6 @@ function configure(req, res, next) {
  */
 function translate(key, language) {
   language = language || requestLanguage || defaultLanguage;
-  console.log('tranlate to', language);
   let dictionary = translations[language];
   if (!dictionary) {
     if (language === defaultLanguage || !translations[defaultLanguage]) {
