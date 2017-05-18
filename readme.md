@@ -4,7 +4,7 @@ Práctica Javascript, Node.js, Express y MongoDB del V KeepCoding Startup Engine
 En la versión inicial se pide desarrollar las siguientes operaciones
 * Regitro: Se deben proporcionar nombre, email, contraseña. El email deber ser único. Se usará una función de hash para guardar la contraseña en la base de datos.
 * Autenticación: El usuario se autenticará proporcionando email y contraseña.
-* Lista de anuncios: Se devolverá el listado de anuncios paginado. Se podrá filtrar por tag, tipo de anuncion, rango de precios y nombre del artículo.
+* Lista de anuncios: Se devolverá el listado de anuncios paginado. Se podrá filtrar por tag, tipo de anuncio, rango de precios y nombre del artículo.
 * Lista de tags: Se devolverá el listado de tags.
 
 
@@ -25,13 +25,10 @@ git clone https://github.com/smarrerof/kc-02nodejs
 ```
 npm install
 ```
-* Lanzar el proyecto
+* Lanzar el proyecto en modo desarrollo
 ```
 npm run dev
-```
-o este comando si estás en entornos windows
-```
-npm run dev:win
+npm run dev:win  (si estás en entornos windows)
 ```
 
 También hay un script para inicializar la base de datos con datos de prueba. Para lanzar este script hay que ejecutar
@@ -42,26 +39,15 @@ npm run installDB
 Los más inquietos pueden validar el código con jshint de la siguiente manera (hay tener instalado jshint de manera global)
 ```
 npm run lint
+npm run lint:win (si estás en entornos windows)
 ```
 
+### Documentación
+La documentación de API puede ser consultada online. Por defecto la aplicación se lanzará en el puerto 3000, por lo que documentación de la API podrá ser consultada navegando a la ruta http://localhost:3000/docs
 
-
-#useful command
-
-* Show dbs
-``` 
-show dbs
-``` 
-* Use db
-``` 
-use <dbName>
-``` 
-* Show collections
-``` 
-show collections
-``` 
-* Remove current db
-```
-db.drop()
-db.dropDatabase()
-```
+### Otros
+* [Node.js](https://nodejs.org)
+* [Express](http://expressjs.com)
+* [Express Generator](https://www.npmjs.com/package/express-generator)
+* [MongoDB](https://www.mongodb.com/)
+* [Swagger](http://swagger.io/)
