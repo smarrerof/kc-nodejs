@@ -1,11 +1,13 @@
 {
   "en": {
+    "Unauthorized": "Not authorized",
     "AddUser_RequireFields": "Name, email and password are mandatory.",
     "AddUser_EmailExists": "Email already already in use",
     "AddUser_EmailIncorrect": "Email is not correct",
     "AuthenticateUser_Failed": "Incorrect user email or password"
   },
   "es": {
+    "Unauthorized": "No autorizado",
     "AddUser_RequireFields": "El nombre, el correo electrónico y la contraseña son obligatorios.",
     "AddUser_EmailExists": "El correo electrónico ya existe",
     "AddUser_EmailIncorrect": "El correo electrónico no es correcto",
