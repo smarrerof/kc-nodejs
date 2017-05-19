@@ -13,11 +13,13 @@ var router = express.Router();
 router.post('/', function(req, res, next) {
   const body = req.body;
   
+  // Validamos los datos obligatorios, o sea, todo. Se podría usar Mongoose Validator.
   if (!body || !body.name || !body.email || !body.password) {
      const error = i18n.translate('AddUser_RequireFields');
      return res.status('400').json({status: false, error: error});
   }
 
+  // Validamos el email con una expresión regular
   if (!/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(body.email)) {
     const error = i18n.translate('AddUser_EmailIncorrect');
     return res.status('400').json({status: false, error: error});
