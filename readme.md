@@ -16,18 +16,14 @@ Para el desarrollo de esta práctica se han utilizado los paquetes
 * [mongoose](https://www.npmjs.com/package/mongoose): Para hacernos la vida más fácil a la hora de usar MongoDB desde node.
 
 ### Instalación
-* Descargar el código fuente
+* Para instalar y ejecutar está aplicación sigue los siguientes pasos
 ```
-git clone https://github.com/smarrerof/kc-02nodejs
-```
-* Ejecutar npm install
-```
+git clone https://github.com/smarrerof/kc-02nodejs <projectName>
+cd <projectName>
 npm install
-```
-* Lanzar el proyecto en modo desarrollo
-```
-npm run dev
-npm run dev:win  (si estás en entornos windows)
+
+npm run dev (si estás en Mac)
+npm run dev:win  (si estás en Windows)
 ```
 
 También hay un script para inicializar la base de datos con datos de prueba. Para lanzar este script hay que ejecutar
@@ -79,6 +75,11 @@ status code: 200
 }
 ```
 
+### Configuración
+Dentro de la carpeta lib hay un fichero config.js. En el se pueden configurar algunos aspectos parámetros de la aplicación.
+* db.url: Uri de la base de datos MongoDB
+* jwt.secret: Secreto usado para firmar el token
+* jwt.expiresIn: Tiempo de expiración del token
 
 ### Internacionalización
 Para la traducción de los mensajes de error se ha usado un módulo propido. Existen diversos módulos para hacer esto, pero se trata de aprender :)
