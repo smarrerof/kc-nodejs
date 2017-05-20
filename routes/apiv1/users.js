@@ -64,7 +64,7 @@ router.post('/authenticate', function(req, res, next) {
 
     const token = jwt.sign({id: user.id});
 
-    return res.json({success: true, result: token});
+    return res.json({success: true, result: {token: token}});
   });
 });
 
