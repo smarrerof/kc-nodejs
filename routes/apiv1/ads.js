@@ -35,11 +35,11 @@ router.get('/', jwt.verify, (req, res, next) => {
   if (req.query.price) {
     var prices = req.query.price.split('-');
     if (prices.length == 2) {
-      filters.price = {};
-      if (prices[0] !== '') {
+      if (!isNaN(parseInt(prices[0]))) {
         filters.price = Object.assign({'$gte': parseInt(prices[0])}, filters.price);
       }
-      if (prices[1] !== '') {
+      
+      if (!isNaN(parseInt(prices[1]))) {
         filters.price = Object.assign({'$lte': parseInt(prices[1])}, filters.price);
       }
     }
