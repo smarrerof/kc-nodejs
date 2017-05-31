@@ -11,9 +11,9 @@ En la versión inicial se pide desarrollar las siguientes operaciones
 ## Detalles técnicos
 ### Módulos utilizados
 Para el desarrollo de esta práctica se han utilizado los paquetes
-* [async](https://www.npmjs.com/package/async): Para lanzar procesos asíncronos. En este caso se usa en el proceso de inicialización de la base de datos, para inicializar cada base de datos en paralelo.
+* [async](https://www.npmjs.com/package/async): Para lanzar procesos asíncronos. En este caso se usa en el proceso de inicialización de la base de datos, para inicializar tabla (colección en MongoDB) en paralelo.
 * [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): Para la autenciación usando jwt.
-* [mongoose](https://www.npmjs.com/package/mongoose): Para hacernos la vida más fácil a la hora de usar MongoDB desde node.
+* [mongoose](https://www.npmjs.com/package/mongoose): Para hacernos la vida más fácil a la hora de usar MongoDB.
 
 ### Instalación
 * Para instalar y ejecutar está aplicación sigue los siguientes pasos
@@ -43,7 +43,7 @@ La documentación de API puede ser consultada online. Por defecto la aplicación
 Las operaciones desarrolladas pueden ser consultadas a traves de los siguiente endpoints
 * (POST) /apiv1/users: Crea un usuario y devuelve el usuario creado
 * (POST) /apiv1/users/authenticate: Autentica un usuario y devuelve el token de acceso
-* (GET) /apiv1/ads: Devuelve una lista de anuncios. Este método admite los siguientes filtro y opciones
+* (GET) /apiv1/ads: Devuelve una lista de anuncios. Este método admite los siguientes filtros y opciones (todos son opcionales)
   * tag: Anuncios que tienen la etiqueta/s
   * sale: Si el anuncio es una venta o una búsqueda
   * name: Anuncios cuyo nombre empieza por el valor suministrado
@@ -53,7 +53,7 @@ Las operaciones desarrolladas pueden ser consultadas a traves de los siguiente e
   * includeTotal: Nos devuelve el número de anuncios que cumplen los filtros indicados.
 * (GET) /apiv1/ads/tags: Devuelve la lista de tags de los anuncions datos de alta
 
-La API siempre devuelve la misma estructura. Esta estructura esta documentada y se llama ApiResult. El contenido es el siguiente
+La API siempre devuelve la misma estructura. Esta estructura está documentada y se llama ApiResult. El contenido es el siguiente
 * status: Verdadero si la llamada es correcta, falso si ha habido algun error.
 * error: Mensaje de error en caso de existir. Este mensaje de error estará localizado.
 * result: Resultado de la llamada.
@@ -71,7 +71,9 @@ status code: 401
 status code: 200
 {
   "success": true,
-  "result": "..."
+  "result": {
+    "token": "..."
+  }
 }
 ```
 
@@ -79,16 +81,16 @@ status code: 200
 Dentro de la carpeta lib hay un fichero config.js. En el se pueden configurar algunos aspectos parámetros de la aplicación.
 * db.url: Uri de la base de datos MongoDB
 * jwt.secret: Secreto usado para firmar el token
-* jwt.expiresIn: Tiempo de expiración del token
+* jwt.expiresIn: Tiempo de expiración del token (en segundos)
 
 ### Internacionalización
-Para la traducción de los mensajes de error se ha usado un módulo propido. Existen diversos módulos para hacer esto, pero se trata de aprender :)
+Para la traducción de los mensajes de error se ha usado un módulo propio. Existen diversos módulos para hacer esto, pero se trata de aprender :)
 
-En la carpeta locales hay un fichero json donde están las traducciones de los distintos tokens.
+En la carpeta locales hay un fichero json (translations.json) donde están las traducciones de los distintos claves.
 
 El lenguaje se debe especificar en el header de la petición usando el nombre language. En este momento los idiomas permitidos son inglés (en) y español (es).
 
-En caso de no existir la traduccion en español, se buscará en inglés. En caso de tampoco existir devolverá el token como traducción, así se evitan errores por no disponer de una traducción.
+En caso de no existir la traduccion en español, se buscará en inglés (lenguaje por defecto). En caso de tampoco existir devolverá la propia clave como traducción, así se evitan errores por no disponer de una traducción.
 
 ### Otros
 * [Node.js](https://nodejs.org)
