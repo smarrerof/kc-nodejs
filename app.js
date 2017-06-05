@@ -43,11 +43,13 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res) {
+app.use(function(err, req, res, next) {
+  console.log('ERROR HANDLER');
+
   res.status(err.status || 500);
 
   if (isAPI(req)) {
-    return res.json({success: false, error: err.message});
+    return res.json({status: false, error: err.message});
   }
 
   // set locals, only providing error in development
