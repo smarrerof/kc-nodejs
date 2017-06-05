@@ -44,8 +44,6 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-  console.log('ERROR HANDLER');
-
   res.status(err.status || 500);
 
   if (isAPI(req)) {
