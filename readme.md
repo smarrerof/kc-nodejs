@@ -24,7 +24,7 @@ Otros aspectos a tener en cuenta son que los archivos estáticos son servidos po
 * Todas la llamadas a http son redirigidas a https
 * Por seguridad se ha cerrado el puerto 22 (SSH)
 
-### Docker
+## Docker
 [readme](https://github.com/smarrerof/kc-devops)
 
 ## Detalles técnicos
