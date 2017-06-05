@@ -7,6 +7,25 @@ En la versión inicial se pide desarrollar las siguientes operaciones
 * Lista de anuncios: Se devolverá el listado de anuncios paginado. Se podrá filtrar por tag, tipo de anuncio, rango de precios y nombre del artículo.
 * Lista de tags: Se devolverá el listado de tags.
 
+## Despliegue
+Se ha utilizado la plataforma Azure para el despliegue de la aplicación.
+* Ejercicio 1: El dominio utilizado es http://nodepop.sergiomarrero.com
+  * Archivo estático: [Hojas de estilo](https://nodepop.sergiomarrero.com/stylesheets/style.css)
+  * Archivo estático: [Imagen](https://nodepop.sergiomarrero.com/images/ads/bici.png)
+  * Llamada a la API: (POST) [users/authenticate](https://nodepop.sergiomarrero.com/apiv1/users/authenticate)
+  
+Otros aspectos a tener en cuenta son que los archivos estáticos son servidos por NGINX y en la respuesta de la petición se añade la cabecera x-owner: smarrerof. y que la llamada a la API es respondida por Express.
+
+* Ejercicio 2: La IP fija asignada por Azure es 13.94.236.181 y en ella se muestra una página HTML estática. Tambien se puede usar el dominio html.sergiomarrero.com
+  * Página estática: [http://13.94.236.181](http://13.94.236.181)
+  * Página estática: [http://html.sergiomarrero.com](http://html.sergiomarrero.com)
+
+### Otros aspectos del despliegue
+* Todas la llamadas a http son redirigidas a https
+* Por seguridad se ha cerrado el puerto 22 (SSH)
+
+## Docker
+[readme](https://github.com/smarrerof/kc-devops)
 
 ## Detalles técnicos
 ### Módulos utilizados
