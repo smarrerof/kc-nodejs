@@ -9,7 +9,7 @@ En la versión inicial se pide desarrollar las siguientes operaciones
 
 ## Despliegue
 Se ha utilizado la plataforma Azure para el despliegue de la aplicación.
-* Ejercicio 1: El dominio utilizado es http://nodepop.sergiomarrero.com
+* Ejercicio 1: El dominio utilizado es nodepop.sergiomarrero.com
   * Archivo estático: [Hojas de estilo](https://nodepop.sergiomarrero.com/stylesheets/style.css)
   * Archivo estático: [Imagen](https://nodepop.sergiomarrero.com/images/ads/bici.png)
   * Llamada a la API: (POST) [users/authenticate](https://nodepop.sergiomarrero.com/apiv1/users/authenticate)
@@ -23,9 +23,10 @@ Otros aspectos a tener en cuenta son que los archivos estáticos son servidos po
 ### Otros aspectos del despliegue
 * Todas la llamadas a http son redirigidas a https
 * Por seguridad se ha cerrado el puerto 22 (SSH)
+* Una llamada a la raiz de la api (nodepop.sergiomarrero.com) devuelve un error controlado con código 404 así como al traza del error. Para evitar la traza del error habría que realizar el despliege de la aplicación nodepop definiendo NODE_ENV como 'production'.
 
 ## Docker
-[readme](https://github.com/smarrerof/kc-devops)
+Como parte opcional se ha realizado el mismo depliege (o al menos en parte) utilizado. Todo lo relacionado con esta parte se puede consultar en el siguiente fichero -> [readme](https://github.com/smarrerof/kc-devops).
 
 ## Detalles técnicos
 ### Módulos utilizados
