@@ -23,7 +23,7 @@ Otros aspectos a tener en cuenta son que los archivos estáticos son servidos po
 ### Otros aspectos del despliegue
 * Todas la llamadas a http son redirigidas a https
 * Por seguridad se ha cerrado el puerto 22 (SSH)
-* Una llamada a la raiz de la api (nodepop.sergiomarrero.com) devuelve un error controlado con código 404 así como al traza del error. Para evitar la traza del error habría que realizar el despliege de la aplicación nodepop definiendo NODE_ENV como 'production'.
+* Una llamada a la raiz de la api (nodepop.sergiomarrero.com) devuelve un error controlado con código 404 así como al traza del error. Para evitar la traza del error habría que realizar el despliegue de la aplicación nodepop definiendo NODE_ENV como 'production'.
 
 ## Docker
 Como parte opcional se ha realizado el mismo depliege (o al menos en parte) utilizado. Todo lo relacionado con esta parte se puede consultar en el siguiente fichero -> [readme](https://github.com/smarrerof/kc-devops).
