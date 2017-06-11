@@ -12,7 +12,7 @@ Se ha utilizado la plataforma Azure para el despliegue de la aplicación.
 * Ejercicio 1: El dominio utilizado es nodepop.sergiomarrero.com
   * Archivo estático: [Hojas de estilo](https://nodepop.sergiomarrero.com/stylesheets/style.css)
   * Archivo estático: [Imagen](https://nodepop.sergiomarrero.com/images/ads/bici.png)
-  * Llamada a la API: (POST) [users/authenticate](https://nodepop.sergiomarrero.com/apiv1/users/authenticate)
+  * Llamada a la API: (GET) [ads/tags](http://168.63.111.54:8080/apiv1/ads/tags) -> Esta llamada devuelve NotAuthorized. Para poder ejecutarla correctamente primero hay que autenticarse. Para eso es recomendable explorar la sección [Nodepop API](https://github.com/smarrerof/kc-nodejs) o la documentación de [API](https://nodepop.sergiomarrero.com/docs)
   
 Otros aspectos a tener en cuenta son que los archivos estáticos son servidos por NGINX y en la respuesta de la petición se añade la cabecera x-owner: smarrerof. y que la llamada a la API es respondida por Express.
 
